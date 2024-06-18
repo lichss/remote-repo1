@@ -146,13 +146,13 @@ int main()
     //     std::cout<<"get:"<<c<<"\n";
 
     // }
-    init_record();
+    // init_record();
 
     Worker_base* workers[99] = {0,};
 
-    testwrite();
+    // testwrite();
     test_read_c(workers);
-    add_worker(workers,4,"DDD",936);
+    add_worker(workers,14,"DDD",936);
     list_workers(workers);
     
     delete_worker(workers,2);
@@ -196,3 +196,34 @@ void menu()
     return;
 }
 
+void sort_workers(Worker_base* workers[])
+{
+    g_workers_index;
+    Worker_base * temp_ptr;
+    int sordex_i;
+    int sordex_i_last = 0;
+
+
+    int index_i;
+    int index_i_last = 0;
+
+    for (int j=0;j<g_workers_index;j++){
+        for(int i=j;i<g_workers_index;i++){
+            if(workers[i]!=nullptr){
+                index_i_last = index_i;
+                index_i = i;
+                
+                sordex_i_last = sordex_i;
+                sordex_i = workers[i]->m_Index_n;
+            }
+            else
+                continue;
+
+            if(sordex_i > sordex_i_last){   /*有效顺序中出现逆序*/
+                temp_ptr = workers[index_i];    /*交换有效顺序位置*/
+                workers[index_i] = workers[index_i_last];
+                workers[index_i_last] = temp_ptr;
+            }
+        }
+    }
+}
