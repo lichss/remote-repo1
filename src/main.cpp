@@ -153,7 +153,7 @@ int main()
 
     // testwrite();
     test_read_c(workers);
-    add_worker(workers,14,"DDD",936);
+    //add_worker(workers,14,"DDD",936);
     
     
     // delete_worker(workers,2);
@@ -213,13 +213,16 @@ void sort_workers(Worker_base* workers[])
 
     int index_i;
     int index_i_last = 0;
-
+    int debug_n=0;
+    int debug_c=0;
     for (int j=0;j<g_workers_index;j++){
-        for(int i=j;i<g_workers_index;i++){
+        for(int i=0;i<g_workers_index;i++){
             if(workers[i]!=nullptr){
                 index_i_last = index_i;
                 index_i = i;
-                
+                ++debug_n;
+                // if(debug_n==13)
+                //     debug_n=0;
                 sordex_i_last = sordex_i;
                 sordex_i = workers[i]->m_Index_n;
                 if(sordex_i < sordex_i_last){   /*有效顺序中出现逆序*/
@@ -231,18 +234,16 @@ void sort_workers(Worker_base* workers[])
                     sordex_i = sordex_i_last;
                     sordex_i_last = sordex_temp;
                 }
-            else{
-                continue;
-                }
-
-            
             }
             //
-            
-            index_i = j;
-            index_i_last = index_i;
-            sordex_i = 0;
-            sordex_i_last = 0;
+            else{
+                continue;
+                debug_c++;
+                }
         }
+        index_i = j;
+        index_i_last = index_i;
+        sordex_i = 0;
+        sordex_i_last = -1;
     }
 }
