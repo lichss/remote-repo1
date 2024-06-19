@@ -14,6 +14,7 @@ const char* path = "files\\records";
 
 void menu();
 void list_workers(Worker_base* workers[]);
+void sort_workers(Worker_base* workers[]);
 
 int testwrite()
 {
@@ -153,10 +154,16 @@ int main()
     // testwrite();
     test_read_c(workers);
     add_worker(workers,14,"DDD",936);
+    
+    
+    // delete_worker(workers,2);
+    // delete_worker(workers,5);
+    // delete_worker(workers,11);
+
+    
     list_workers(workers);
-    
-    delete_worker(workers,2);
-    
+    sort_workers(workers);
+    std::cout<<"\n\nsort\n";
     list_workers(workers);
 
     return 0;
@@ -199,10 +206,10 @@ void menu()
 void sort_workers(Worker_base* workers[])
 {
     g_workers_index;
-    Worker_base * temp_ptr;
+    Worker_base * wptr_temp;
     int sordex_i;
     int sordex_i_last = 0;
-
+    int sordex_temp;
 
     int index_i;
     int index_i_last = 0;
@@ -215,15 +222,27 @@ void sort_workers(Worker_base* workers[])
                 
                 sordex_i_last = sordex_i;
                 sordex_i = workers[i]->m_Index_n;
-            }
-            else
-                continue;
+                if(sordex_i < sordex_i_last){   /*有效顺序中出现逆序*/
+                    wptr_temp = workers[index_i];    /*交换有效顺序位置*/
+                    workers[index_i] = workers[index_i_last];
+                    workers[index_i_last] = wptr_temp;
 
-            if(sordex_i > sordex_i_last){   /*有效顺序中出现逆序*/
-                temp_ptr = workers[index_i];    /*交换有效顺序位置*/
-                workers[index_i] = workers[index_i_last];
-                workers[index_i_last] = temp_ptr;
+                    sordex_temp = sordex_i;
+                    sordex_i = sordex_i_last;
+                    sordex_i_last = sordex_temp;
+                }
+            else{
+                continue;
+                }
+
+            
             }
+            //
+            
+            index_i = j;
+            index_i_last = index_i;
+            sordex_i = 0;
+            sordex_i_last = 0;
         }
     }
 }
